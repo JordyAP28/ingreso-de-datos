@@ -8,24 +8,65 @@
 </head>
 <body>
     <div class="container">
-        <form action="" method="post">
-            <label for="">Nombres</label>
-            <input type="text" placeholder="Ejemplo: Jhon">
-            <label for="">Apellidos</label>
-            <input type="text" placeholder="Ejemplo: Barre">
-            <label for="">Identificación</label>
-            <select>
+        <form action="" method="post" id="formulario">
+            <label for="nombres">Nombres</label>
+            <input type="text"  id="nombres" placeholder="Ejemplo: Jhon">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos" placeholder="Ejemplo: Barre">
+            <label>Identificación</label>
+            <select required>
                 <option value="Cedula">Cedula</option>
                 <option value="Pasaporte">Pasaporte</option>
             </select>
-            <label for="">Numero documento</label>
-            <input type="text" placeholder="1310101010">
-            <label for="">Correo electronico:</label>
-            <input type="email" placeholder="example@gmail.com">
-            <label for="">Dirección</label>
-            <input type="text" placeholder="Calle 12">
+            <label for="documento">Numero documento</label>
+            <input type="text" id="documento" placeholder="1310101010">
+            <label for="correo">Correo electronico:</label>
+            <input type="email" id="correo" placeholder="example@gmail.com">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" placeholder="Calle 12">
             <button type="submit">Enviar</button>
         </form>
     </div>
+    
+    <script>
+    document.getElementById("formulario").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const nombres = document.getElementById("nombres").value.trim();
+        const apellidos = document.getElementById("apellidos").value.trim();
+        const documento = document.getElementById("documento").value.trim();
+        const correo = document.getElementById("correo").value.trim();
+        const direccion = document.getElementById("direccion").value.trim();
+
+        if (nombres === "") {
+            alert("Por favor ingrese los nombres.");
+            return;
+        }
+
+        if (apellidos === "") {
+            alert("Por favor ingrese los apellidos.");
+            return;
+        }
+
+        if (!/^\d{8,}$/.test(documento)) {
+            alert("El número de documento debe contener solo números y tener al menos 10 dígitos.");
+            return;
+        }
+
+        const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!correoRegex.test(correo)) {
+            alert("Ingrese un correo electrónico válido.");
+            return;
+        }
+
+        if (direccion === "") {
+            alert("Por favor ingrese la dirección.");
+            return;
+        }
+
+        alert("Formulario enviado correctamente.");
+    });
+    </script>
+
 </body>
 </html>
